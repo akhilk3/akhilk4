@@ -116,7 +116,7 @@
         }
 
         /* Grid Layouts */
-        .section { padding: 8rem 10%; }
+        .section { padding: 6rem 10%; }
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -131,12 +131,59 @@
             border-radius: 24px;
             transition: 0.4s;
             backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
             border-color: var(--primary);
             background: rgba(255, 255, 255, 0.08);
             transform: translateY(-8px);
+        }
+
+        .card-link {
+            margin-top: auto;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            padding-top: 20px;
+        }
+
+        /* FAQ Accordion */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--glass);
+            margin-bottom: 1rem;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease-out;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .faq-item.active .faq-answer {
+            padding-bottom: 1.5rem;
+            max-height: 200px;
         }
 
         /* Contact Form */
@@ -150,6 +197,7 @@
         }
 
         .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: #94a3b8; }
         
         input, textarea {
             width: 100%;
@@ -162,33 +210,8 @@
             transition: 0.3s;
         }
 
-        input:focus, textarea:focus {
-            border-color: var(--primary);
-        }
-
-        /* Success Toast */
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #10b981;
-            color: #fff;
-            text-align: center;
-            border-radius: 50px;
-            padding: 16px;
-            position: fixed;
-            z-index: 1000;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        #toast.show {
-            visibility: visible;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        input:focus, textarea:focus { border-color: var(--primary); }
+        input[type="file"] { padding: 10px; cursor: pointer; }
 
         /* Animation Classes */
         .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s all ease; }
@@ -205,60 +228,101 @@
 
     <nav>
         <div class="logo">K3STECH</div>
-        <a href="#contact" class="cta-btn" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">Get Started</a>
+        <a href="#contact" class="cta-btn" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">Hire Us</a>
     </nav>
 
     <header>
         <h1 class="reveal">Build Fast.<br>Scale Smarter.</h1>
-        <p class="subtitle reveal">Hyper-efficient n8n workflows for content creators, e-commerce stores, and real-estate agencies. Save hours of manual work every single day.</p>
+        <p class="subtitle reveal">Hyper-efficient n8n workflows for content creators, e-commerce, and real-estate. We save you time, you grow the business.</p>
         <a href="#products" class="cta-btn reveal">View Products</a>
     </header>
 
-    <section id="products" class="section">
+    <section class="section">
+        <h2 style="text-align:center; font-size: 2.5rem;">Core Services</h2>
+        <div class="grid">
+            <div class="card reveal">
+                <h3>n8n Automation</h3>
+                <p>Custom workflows for real estate and creators. Connect Shopify, CRM, and Social Media effortlessly.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Web Design</h3>
+                <p>Clean, modern UI/UX design like the page you are seeing right now. Fast and responsive.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Video Editing</h3>
+                <p>High-quality edits for creators looking to dominate YouTube, Reels, and TikTok.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="section" style="background: rgba(0,0,0,0.2);">
         <h2 style="text-align:center; font-size: 2.8rem;">Our Products</h2>
         <div class="grid">
             <div class="card reveal">
                 <h4 style="color: var(--secondary); margin-bottom: 10px;">01</h4>
                 <h3>ATS Resume Shaper</h3>
-                <p>Ensure your resume passes through screening filters with AI-driven keyword optimization.</p>
+                <p>Beat the bots. Send us your PDF and JD link, and we'll optimize it for ATS systems.</p>
+                <a href="mailto:contact@k3stech.com?subject=Resume%20Shaper%20Service&body=Hi%20K3STECH%2C%0A%0AI%20want%20to%20optimize%20my%20resume.%0A%0AJD%20Link%3A%20%0AResume%20PDF%3A%20[Please%20Attach%20PDF]" class="card-link">Optimize Now &rarr;</a>
             </div>
             <div class="card reveal">
                 <h4 style="color: var(--secondary); margin-bottom: 10px;">02</h4>
                 <h3>AI Document Extractor</h3>
-                <p>Automatically pull structured data from invoices, contracts, and IDs with 99% accuracy.</p>
+                <p>Automate data entry. Extract info from invoices and documents with AI precision.</p>
+                <a href="#contact" class="card-link">Learn More &rarr;</a>
             </div>
             <div class="card reveal">
                 <h4 style="color: var(--secondary); margin-bottom: 10px;">03</h4>
                 <h3>Tatkal Booking Bot</h3>
-                <p>High-speed automation for time-sensitive booking tasks and inventory alerts.</p>
+                <p>Custom automation for high-speed booking and notification systems.</p>
+                <a href="#contact" class="card-link">Inquire &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 style="text-align:center; font-size: 2.5rem; margin-bottom: 3rem;">Common Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item reveal">
+                <div class="faq-question">What is n8n and why do I need it? <span>+</span></div>
+                <div class="faq-answer">n8n is a powerful workflow automation tool. We use it to connect your apps (like Google Sheets, WhatsApp, Shopify, or Real Estate CRMs) so they talk to each other automatically, saving you hours of manual data entry.</div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question">How does the Resume Shaper work? <span>+</span></div>
+                <div class="faq-answer">You send us your current Resume and the Link to the Job Description. Our AI-driven system re-formats and optimizes your resume with specific keywords to ensure you pass ATS filters.</div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question">Can you handle custom video editing? <span>+</span></div>
+                <div class="faq-answer">Yes! We specialize in short-form content for creators (Reels/TikToks) and professional property walkthroughs for Real Estate owners.</div>
             </div>
         </div>
     </section>
 
     <section id="contact" class="section">
         <div class="contact-container reveal">
-            <h2 style="margin-bottom: 1rem; text-align: center;">Start Your Automation Journey</h2>
-            <p style="text-align: center; margin-bottom: 2rem; color: #94a3b8;">Tell us about your project and we'll get back to you within 24 hours.</p>
+            <h2 style="margin-bottom: 1rem; text-align: center;">Get In Touch</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: #94a3b8;">Send us your requirements or upload your file here.</p>
             
-            <form id="contactForm">
+            <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="text" placeholder="Your Name" required>
+                    <input type="text" name="name" placeholder="Your Name" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" placeholder="Email Address" required>
+                    <input type="email" name="email" placeholder="Email Address" required>
                 </div>
                 <div class="form-group">
-                    <textarea rows="5" placeholder="Tell us what you want to automate..." required></textarea>
+                    <label>Upload Document (Optional)</label>
+                    <input type="file" name="attachment">
                 </div>
-                <button type="submit" class="cta-btn" style="width: 100%;">Send Message</button>
+                <div class="form-group">
+                    <textarea name="message" rows="5" placeholder="Details about your automation needs or JD links..." required></textarea>
+                </div>
+                <button type="submit" class="cta-btn" style="width: 100%;">Send Request</button>
             </form>
         </div>
     </section>
 
-    <div id="toast">Message sent successfully! 🚀</div>
-
     <footer>
-        <p>&copy; 2026 K3STECH. Specialists in n8n, Web Design & Video Editing.</p>
+        <p>&copy; 2026 K3STECH. All rights reserved.</p>
     </footer>
 
     <script>
@@ -281,19 +345,12 @@
             blob.style.top = `${e.clientY - 250}px`;
         });
 
-        // Form Handling
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Show Success Toast
-            const toast = document.getElementById("toast");
-            toast.className = "show";
-            
-            // Reset Form
-            this.reset();
-            
-            // Hide Toast after 3 seconds
-            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        // FAQ Accordion Logic
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+            });
         });
     </script>
 </body>
