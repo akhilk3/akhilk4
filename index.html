@@ -3,355 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K3STECH | Next-Gen Automation</title>
+    <title>Thirumala Furniture | Mobile-Ready Showroom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00f2fe;
-            --secondary: #4facfe;
-            --dark: #0f172a;
-            --glass: rgba(255, 255, 255, 0.05);
-            --text: #f8fafc;
+            --primary: #121212;
+            --accent: #c5a059;
+            --bg: #ffffff;
+            --whatsapp: #25D366;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, sans-serif;
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg); color: var(--primary); overflow-x: hidden; line-height: 1.6; }
 
-        body {
-            background: var(--dark);
-            color: var(--text);
-            overflow-x: hidden;
-        }
-
-        /* Moving Background */
-        .bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
-        }
-
-        .blob {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            filter: blur(100px);
-            border-radius: 50%;
-            opacity: 0.12;
-            pointer-events: none;
-            transition: all 0.5s ease-out;
-        }
-
-        /* Navigation */
+        /* --- NAVIGATION --- */
         nav {
-            padding: 1.5rem 10%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--glass);
+            position: fixed; top: 0; width: 100%; height: 70px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid #eee;
         }
+        .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: var(--primary);
+        /* Mobile Menu Toggle */
+        .menu-btn { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .menu-btn span { width: 25px; height: 3px; background: var(--primary); border-radius: 2px; }
+
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--primary); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+
+        /* --- HERO --- */
+        .hero {
+            padding-top: 100px; height: 60vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            background: #f8f8f8; padding: 20px;
         }
+        .hero h1 { font-size: 2.5rem; line-height: 1.1; margin-bottom: 10px; }
+        .hero p { color: #666; max-width: 500px; }
 
-        /* Hero Section */
-        header {
-            height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 10%;
-        }
+        /* --- PRODUCT GRID --- */
+        section { padding: 40px 5%; }
+        .section-title { font-size: 1.8rem; margin-bottom: 30px; text-align: center; }
 
-        h1 {
-            font-size: 4.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p.subtitle {
-            font-size: 1.2rem;
-            color: #94a3b8;
-            max-width: 650px;
-            margin-bottom: 2.5rem;
-            line-height: 1.6;
-        }
-
-        .cta-btn {
-            padding: 1.2rem 2.5rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 50px;
-            color: white;
-            font-weight: bold;
-            text-decoration: none;
-            cursor: pointer;
-            transition: 0.3s;
-            display: inline-block;
-        }
-
-        .cta-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);
-        }
-
-        /* Grid Layouts */
-        .section { padding: 6rem 10%; }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3.5rem;
-        }
-
-        .card {
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2.5rem;
-            border-radius: 24px;
-            transition: 0.4s;
-            backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card:hover {
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-8px);
-        }
-
-        .card-link {
-            margin-top: auto;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: bold;
-            padding-top: 20px;
-        }
-
-        /* FAQ Accordion */
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: var(--glass);
-            margin-bottom: 1rem;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .faq-question {
-            padding: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-        }
-
-        .faq-answer {
-            padding: 0 1.5rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.3s ease-out;
-            color: #94a3b8;
-            font-size: 0.95rem;
-        }
-
-        .faq-item.active .faq-answer {
-            padding-bottom: 1.5rem;
-            max-height: 200px;
-        }
-
-        /* Contact Form */
-        .contact-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--glass);
-            padding: 3rem;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .form-group { margin-bottom: 1.5rem; }
-        label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: #94a3b8; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
         
-        input, textarea {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            color: white;
-            outline: none;
-            transition: 0.3s;
+        .card {
+            background: #fff; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: var(--transition);
+            border: 1px solid #f0f0f0;
         }
 
-        input:focus, textarea:focus { border-color: var(--primary); }
-        input[type="file"] { padding: 10px; cursor: pointer; }
+        .card-img { width: 100%; height: 250px; object-fit: cover; }
+        .card-body { padding: 20px; }
+        .card-body h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .card-body p { font-size: 0.85rem; color: #777; margin-bottom: 15px; }
 
-        /* Animation Classes */
-        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s all ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        /* WhatsApp Button */
+        .wa-btn {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px; background: var(--whatsapp); color: white;
+            text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem;
+            transition: var(--transition);
+        }
 
-        footer { text-align: center; padding: 4rem; border-top: 1px solid var(--glass); color: #64748b; }
+        /* --- FLOATING WA ICON --- */
+        .wa-float {
+            position: fixed; bottom: 20px; right: 20px; background: var(--whatsapp);
+            width: 55px; height: 55px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; z-index: 1001;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .menu-btn { display: flex; }
+            .nav-links {
+                position: absolute; top: 70px; right: -100%; width: 100%;
+                height: 100vh; background: white; flex-direction: column;
+                align-items: center; padding-top: 50px; transition: 0.4s;
+            }
+            .nav-links.active { right: 0; }
+            .hero h1 { font-size: 2rem; }
+            .grid { grid-template-columns: 1fr; }
+            .card:hover { transform: none; } /* Disable tilt on mobile for better UX */
+        }
+
+        /* Material Diff */
+        .diff-box { background: #1a1a1a; color: white; padding: 40px 5%; border-radius: 15px; margin: 20px 5%; }
+        .diff-box h2 { color: var(--accent); margin-bottom: 15px; }
+        .diff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="bg-canvas">
-        <div class="blob"></div>
-    </div>
-
     <nav>
-        <div class="logo">K3STECH</div>
-        <a href="#contact" class="cta-btn" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">Hire Us</a>
+        <div class="logo">THIRUMALA</div>
+        <div class="menu-btn" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#living" onclick="toggleMenu()">Living</a>
+            <a href="#dining" onclick="toggleMenu()">Dining</a>
+            <a href="#bedroom" onclick="toggleMenu()">Bedroom</a>
+        </div>
     </nav>
 
-    <header>
-        <h1 class="reveal">Build Fast.<br>Scale Smarter.</h1>
-        <p class="subtitle reveal">Hyper-efficient n8n workflows for content creators, e-commerce, and real-estate. We save you time, you grow the business.</p>
-        <a href="#products" class="cta-btn reveal">View Products</a>
+    <a href="https://wa.me/919502372638" class="wa-float" target="_blank">
+        <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.483 8.413-.003 6.557-5.338 11.892-11.893 11.892-1.971-.001-3.903-.495-5.626-1.432l-6.37 1.67zm6.386-3.874l.361.214c1.517.899 3.268 1.373 5.05 1.374h.004c5.45 0 9.886-4.436 9.889-9.888.002-2.641-1.026-5.124-2.893-6.992s-4.352-2.893-6.993-2.893c-5.45 0-9.884 4.436-9.887 9.887-.001 2.095.547 4.141 1.587 5.945l.235.375-1.053 3.847 3.945-1.035zm11.082-7.404c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+    </a>
+
+    <header class="hero">
+        <h1>Thirumala Furniture</h1>
+        <p>Premium Quality Furniture for Living, Dining, and Bedrooms.</p>
     </header>
 
-    <section class="section">
-        <h2 style="text-align:center; font-size: 2.5rem;">Core Services</h2>
+    <section id="living">
+        <h2 class="section-title">Living Room</h2>
         <div class="grid">
-            <div class="card reveal">
-                <h3>n8n Automation</h3>
-                <p>Custom workflows for real estate and creators. Connect Shopify, CRM, and Social Media effortlessly.</p>
+            <div class="card">
+                <img src="https://www.woodsala.com/cdn/shop/products/02_2.png?v=1655378387&width=1400" class="card-img">
+                <div class="card-body">
+                    <h3>Teakwood Sofa Set</h3>
+                    <p>Crafted with seasoned teak wood and premium upholstery.</p>
+                    <a href="https://wa.me/919502372638?text=Enquire:%20Teakwood%20Sofa" class="wa-btn">Enquire WhatsApp</a>
+                </div>
             </div>
-            <div class="card reveal">
-                <h3>Web Design</h3>
-                <p>Clean, modern UI/UX design like the page you are seeing right now. Fast and responsive.</p>
-            </div>
-            <div class="card reveal">
-                <h3>Video Editing</h3>
-                <p>High-quality edits for creators looking to dominate YouTube, Reels, and TikTok.</p>
+            <div class="card">
+                <img src="https://ashleyfurniture.scene7.com/is/image/AshleyFurniture/1030125-10X8-CROP?scl=1&printres=300" class="card-img">
+                <div class="card-body">
+                    <h3>Leather Recliner</h3>
+                    <p>Ergonomic design for maximum relaxation in your living space.</p>
+                    <a href="https://wa.me/919502372638?text=Enquire:%20Leather%20Recliner" class="wa-btn">Enquire WhatsApp</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="products" class="section" style="background: rgba(0,0,0,0.2);">
-        <h2 style="text-align:center; font-size: 2.8rem;">Our Products</h2>
+    <div class="diff-box" id="dining">
+        <h2>Marble vs. Wood Dining</h2>
+        <div class="diff-grid">
+            <div>
+                <h4 style="color:var(--accent)">Marble Dining</h4>
+                <p style="font-size:0.85rem">Stain-resistant, heat-resistant, and provides a grand, cool aesthetic.</p>
+            </div>
+            <div>
+                <h4 style="color:var(--accent)">Wood Dining</h4>
+                <p style="font-size:0.85rem">Warm, natural texture that is more impact-resistant and durable for families.</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="bedroom">
+        <h2 class="section-title">Master Bedroom</h2>
         <div class="grid">
-            <div class="card reveal">
-                <h4 style="color: var(--secondary); margin-bottom: 10px;">01</h4>
-                <h3>ATS Resume Shaper</h3>
-                <p>Beat the bots. Send us your PDF and JD link, and we'll optimize it for ATS systems.</p>
-                <a href="mailto:k3stech@gmail.com?subject=Resume%20Shaper%20Service&body=Hi%20K3STECH%2C%0A%0AI%20want%20to%20optimize%20my%20resume.%0A%0AJD%20Link%3A%20%0AResume%20PDF%3A%20[Please%20Attach%20PDF]" class="card-link">Optimize Now &rarr;</a>
-            </div>
-            <div class="card reveal">
-                <h4 style="color: var(--secondary); margin-bottom: 10px;">02</h4>
-                <h3>AI Document Extractor</h3>
-                <p>Automate data entry. Extract info from invoices and documents with AI precision.</p>
-                <a href="#contact" class="card-link">Learn More &rarr;</a>
-            </div>
-            <div class="card reveal">
-                <h4 style="color: var(--secondary); margin-bottom: 10px;">03</h4>
-                <h3>Tatkal Booking Bot</h3>
-                <p>Custom automation for high-speed booking and notification systems.</p>
-                <a href="#contact" class="card-link">Inquire &rarr;</a>
+            <div class="card">
+                <img src="https://buildhub.in/storage/recliners/3-27.jpg" class="card-img">
+                <div class="card-body">
+                    <h3>Grand Master Cot</h3>
+                    <p>A royal design with hydraulic storage and high-quality finish.</p>
+                    <a href="https://wa.me/919502372638?text=Enquire:%20Master%20Cot" class="wa-btn">Enquire WhatsApp</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="section">
-        <h2 style="text-align:center; font-size: 2.5rem; margin-bottom: 3rem;">Common Questions</h2>
-        <div class="faq-container">
-            <div class="faq-item reveal">
-                <div class="faq-question">What is n8n and why do I need it? <span>+</span></div>
-                <div class="faq-answer">n8n is a powerful workflow automation tool. We use it to connect your apps (like Google Sheets, WhatsApp, Shopify, or Real Estate CRMs) so they talk to each other automatically, saving you hours of manual data entry.</div>
-            </div>
-            <div class="faq-item reveal">
-                <div class="faq-question">How does the Resume Shaper work? <span>+</span></div>
-                <div class="faq-answer">You send us your current Resume and the Link to the Job Description. Our AI-driven system re-formats and optimizes your resume with specific keywords to ensure you pass ATS filters.</div>
-            </div>
-            <div class="faq-item reveal">
-                <div class="faq-question">Can you handle custom video editing? <span>+</span></div>
-                <div class="faq-answer">Yes! We specialize in short-form content for creators (Reels/TikToks) and professional property walkthroughs for Real Estate owners.</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="section">
-        <div class="contact-container reveal">
-            <h2 style="margin-bottom: 1rem; text-align: center;">Get In Touch</h2>
-            <p style="text-align: center; margin-bottom: 2rem; color: #94a3b8;">Send us your requirements or upload your file here.</p>
-            
-            <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Email Address" required>
-                </div>
-                <div class="form-group">
-                    <label>Upload Document (Optional)</label>
-                    <input type="file" name="attachment">
-                </div>
-                <div class="form-group">
-                    <textarea name="message" rows="5" placeholder="Details about your automation needs or JD links..." required></textarea>
-                </div>
-                <button type="submit" class="cta-btn" style="width: 100%;">Send Request</button>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 K3STECH. All rights reserved.</p>
+    <footer style="text-align: center; padding: 40px; background: #f4f4f4; font-size: 0.8rem;">
+        <p>&copy; 2026 Thirumala Furniture | Contact: 9502372638</p>
     </footer>
 
     <script>
-        // Scroll Reveal
-        function reveal() {
-            const reveals = document.querySelectorAll(".reveal");
-            reveals.forEach(el => {
-                const windowHeight = window.innerHeight;
-                const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) el.classList.add("active");
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // 3D Tilt - Only active for non-touch devices (Desktop)
+        if (window.innerWidth > 768) {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const rotateX = (y - (rect.height / 2)) / 15;
+                    const rotateY = ((rect.width / 2) - x) / 15;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+                });
             });
         }
-        window.addEventListener("scroll", reveal);
-        reveal();
-
-        // Mouse Tracking Blob
-        const blob = document.querySelector('.blob');
-        document.addEventListener('mousemove', (e) => {
-            blob.style.left = `${e.clientX - 250}px`;
-            blob.style.top = `${e.clientY - 250}px`;
-        });
-
-        // FAQ Accordion Logic
-        document.querySelectorAll('.faq-question').forEach(item => {
-            item.addEventListener('click', () => {
-                const parent = item.parentElement;
-                parent.classList.toggle('active');
-            });
-        });
     </script>
 </body>
 </html>
