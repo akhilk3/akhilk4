@@ -11,8 +11,6 @@
             --secondary: #3a7bd5;
             --dark: #0b1120;
             --card-bg: rgba(30, 41, 59, 0.7);
-            --accent: #10b981;
-            --warning: #f59e0b;
         }
 
         [lang="te"] .en { display: none; }
@@ -21,221 +19,152 @@
         [lang="en"] .en { display: block; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--dark); color: white; line-height: 1.6; }
+        body { background-color: var(--dark); color: white; line-height: 1.6; overflow-x: hidden; }
 
         nav { padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(11, 17, 32, 0.9); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .logo { font-size: 1.6rem; font-weight: 900; color: var(--primary); letter-spacing: 2px; }
-        .lang-btn { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); padding: 8px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.3s; }
-        .lang-btn:hover { background: var(--primary); color: var(--dark); }
+        .lang-btn { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); padding: 8px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; }
 
-        header { padding: 80px 5% 40px; text-align: center; }
-        .container { padding: 20px 5%; max-width: 1200px; margin: 0 auto; }
+        .container { padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { margin: 60px 0 30px; font-size: 2.2rem; color: var(--primary); border-left: 5px solid var(--primary); padding-left: 20px; }
 
-        /* Section Headings */
-        .section-title { margin: 60px 0 30px; font-size: 2rem; border-left: 5px solid var(--primary); padding-left: 20px; color: var(--primary); }
-
-        /* 1. SERVICES GRID (NOW FIRST) */
+        /* GRID SYSTEM */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
-        .card { background: var(--card-bg); border-radius: 24px; overflow: hidden; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid rgba(255,255,255,0.05); }
-        .card:hover { transform: translateY(-12px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0, 210, 255, 0.2); }
-        .card-img { width: 100%; height: 200px; object-fit: cover; filter: brightness(0.8); border-bottom: 3px solid var(--primary); }
+        .card { background: var(--card-bg); border-radius: 24px; overflow: hidden; cursor: pointer; transition: 0.4s; border: 1px solid rgba(255,255,255,0.05); }
+        .card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .card-img { width: 100%; height: 220px; object-fit: cover; }
         .card-body { padding: 30px; }
-        .card-body h3 { font-size: 1.5rem; margin-bottom: 12px; color: var(--primary); }
 
-        /* 2. PORTFOLIO GRID (NOW LAST) */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-bottom: 80px; }
-        .portfolio-card { background: #1e293b; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
-        .portfolio-card img { width: 100%; height: 240px; object-fit: cover; opacity: 0.9; transition: 0.5s; }
-        .portfolio-card:hover img { opacity: 1; transform: scale(1.03); }
-        .portfolio-info { padding: 25px; }
-
-        /* CINEMATIC MODAL */
-        #modalOverlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(7, 10, 19, 0.96); backdrop-filter: blur(20px);
-            display: none; justify-content: center; align-items: center; z-index: 9999;
-            opacity: 0; transition: opacity 0.4s ease;
-        }
-        #modalOverlay.active { display: flex; opacity: 1; }
-        .modal-box {
-            background: #1e293b; width: 90%; max-width: 800px; padding: 50px;
-            border-radius: 35px; border: 1px solid var(--primary);
-            position: relative; transform: translateY(30px); transition: 0.5s;
-            max-height: 85vh; overflow-y: auto; box-shadow: 0 0 50px rgba(0, 210, 255, 0.3);
-        }
-        #modalOverlay.active .modal-box { transform: translateY(0); }
-        .close-x { position: absolute; top: 25px; right: 25px; cursor: pointer; color: white; background: #ef4444; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; font-weight: bold; }
+        /* CHATBOT UI */
+        #chat-fab { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 1001; }
+        #chat-window { position: fixed; bottom: 115px; right: 30px; width: 380px; height: 550px; background: #1e293b; border-radius: 30px; border: 1px solid var(--primary); display: none; flex-direction: column; z-index: 1001; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
+        .chat-header { background: var(--primary); color: var(--dark); padding: 20px; font-weight: 900; display: flex; justify-content: space-between; }
+        .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
         
-        .modal-list { list-style: none; margin-top: 25px; }
-        .modal-list li { margin-bottom: 20px; padding-left: 25px; border-left: 4px solid var(--primary); }
-        .modal-list b { color: var(--primary); display: block; font-size: 1.2rem; margin-bottom: 5px; }
+        /* Message Bubbles */
+        .bot-msg { background: #334155; padding: 12px 16px; border-radius: 15px 15px 15px 0; max-width: 85%; align-self: flex-start; font-size: 0.9rem; border-left: 3px solid var(--primary); }
+        .user-msg { background: var(--primary); color: var(--dark); padding: 12px 16px; border-radius: 15px 15px 0 15px; max-width: 85%; align-self: flex-end; font-size: 0.9rem; font-weight: 600; }
 
-        .cta { text-align: center; padding: 100px 5%; background: linear-gradient(to bottom, transparent, #1e293b); }
-        .mail-link { background: var(--primary); color: var(--dark); padding: 18px 45px; border-radius: 50px; text-decoration: none; font-weight: 900; font-size: 1.1rem; display: inline-block; transition: 0.3s; }
-        .mail-link:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0, 210, 255, 0.4); }
-
-        @media (max-width: 768px) { .portfolio-grid { grid-template-columns: 1fr; } .modal-box { padding: 30px; } }
+        .chat-input-area { padding: 15px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 10px; background: #1e293b; }
+        #userInput { flex: 1; background: #0f172a; border: 1px solid #334155; color: white; padding: 12px; border-radius: 10px; outline: none; }
+        .send-btn { background: var(--primary); border: none; width: 45px; height: 45px; border-radius: 10px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        
+        /* MODAL */
+        #modalOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        .modal-box { background: #1e293b; width: 90%; max-width: 600px; padding: 40px; border-radius: 20px; position: relative; border: 1px solid var(--primary); }
+        .close-btn { position: absolute; top: 15px; right: 15px; background: red; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
-<body lang="en" id="yantraBody">
+<body id="bdy">
 
     <nav>
         <div class="logo">YANTRALYZE</div>
-        <button class="lang-btn" onclick="toggleLang()">
-            <span class="en">తెలుగు</span><span class="te">English</span>
-        </button>
+        <button class="lang-btn" onclick="toggleLang()">తెలుగు</button>
     </nav>
 
-    <header>
-        <h1 class="en">AI Intelligence for Modern Growth</h1>
-        <h1 class="te">ఆధునిక అభివృద్ధి కోసం AI ఇంటెలిజెన్స్</h1>
-        <p class="en" style="color: #94a3b8; font-size: 1.2rem; margin-top: 15px;">Revolutionizing Industrial Operations with Data & Automation.</p>
-    </header>
-
     <div class="container">
-        
-        <h2 class="section-title en">Our Specialized Services</h2>
-        <h2 class="section-title te">మా విశిష్ట సేవలు</h2>
-        
+        <h2 class="section-title">Our Specialized Services</h2>
         <div class="grid">
-            <div class="card" onclick="openPopup('analysis')">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" class="card-img">
-                <div class="card-body">
-                    <h3 class="en">1. AI Business Analysis</h3>
-                    <h3 class="te">1. AI బిజినెస్ అనాలిసిస్</h3>
-                    <p class="en">Deep data insights for heavy industries &rarr;</p>
-                    <p class="te">పరిశ్రమల కోసం డేటా విశ్లేషణ &rarr;</p>
-                </div>
+            <div class="card" onclick="openMod('analysis')">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800" class="card-img">
+                <div class="card-body"><h3>AI Business Analysis</h3><p>Predictive insights &rarr;</p></div>
             </div>
-
-            <div class="card" onclick="openPopup('automation')">
-                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80" class="card-img">
-                <div class="card-body">
-                    <h3 class="en">2. AI Automation</h3>
-                    <h3 class="te">2. AI ఆటోమేషన్</h3>
-                    <p class="en">Autonomous n8n workflows & agents &rarr;</p>
-                    <p class="te">ఆటోమేటెడ్ వర్క్‌ఫ్లోస్ & ఏజెంట్స్ &rarr;</p>
-                </div>
+            <div class="card" onclick="openMod('automation')">
+                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800" class="card-img">
+                <div class="card-body"><h3>N8N AI Agents</h3><p>Workflow automation &rarr;</p></div>
             </div>
-
-            <div class="card" onclick="openPopup('web')">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" class="card-img">
-                <div class="card-body">
-                    <h3 class="en">3. Custom Web Dev</h3>
-                    <h3 class="te">3. వెబ్ డెవలప్‌మెంట్</h3>
-                    <p class="en">Sales-driven local SEO & catalogs &rarr;</p>
-                    <p class="te">సేల్స్ పెంచే వెబ్ టూల్స్ &rarr;</p>
-                </div>
+            <div class="card" onclick="openMod('web')">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800" class="card-img">
+                <div class="card-body"><h3>Custom Web Design</h3><p>Sales tools & SEO &rarr;</p></div>
             </div>
         </div>
 
-        <h2 class="section-title en">Featured Success Portfolio</h2>
-        <h2 class="section-title te">మా విజయవంతమైన ప్రాజెక్ట్‌లు</h2>
-        
-        <div class="portfolio-grid">
-            <div class="portfolio-card">
-                <img src="https://media.licdn.com/dms/image/v2/D5622AQH2qiIFOheW7g/feedshare-shrink_1280/B56ZwPQupDJ0Ac-/0/1769782569738?e=1775692800&v=beta&t=1Vf-wXV33aCUPVHTnbw_8DfII8gIELOfZVqiJ5SOSqE">
-                <div class="portfolio-info">
-                    <h3 class="en">Insurance Fraud Detection</h3>
-                    <h3 class="te">ఇన్సూరెన్స్ ఫ్రాడ్ డిటెక్షన్</h3>
-                    <p class="en" style="color: #94a3b8;">AI system identifying fraudulent patterns in massive datasets.</p>
-                </div>
+        <h2 class="section-title">Proven Success Stories</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://media.licdn.com/dms/image/v2/D5622AQH2qiIFOheW7g/feedshare-shrink_1280/B56ZwPQupDJ0Ac-/0/1769782569738?e=1775692800&v=beta&t=1Vf-wXV33aCUPVHTnbw_8DfII8gIELOfZVqiJ5SOSqE" class="card-img">
+                <div class="card-body"><h3>Insurance Fraud Detection</h3></div>
             </div>
-            <div class="portfolio-card">
-                <img src="https://media.licdn.com/dms/image/v2/D5622AQHZVsq8qSD8Cw/feedshare-shrink_2048_1536/B56ZuEVZ6RG0Aw-/0/1767451764461?e=1775692800&v=beta&t=AZkpizCcV30_nf9XB82fc_rE2TNzT9Sus2UpHkGYQEg">
-                <div class="portfolio-info">
-                    <h3 class="en">n8n Student ATS Agent</h3>
-                    <h3 class="te">n8n స్టూడెంట్ ATS ఏజెంట్</h3>
-                    <p class="en" style="color: #94a3b8;">Automating resume screening during trial periods.</p>
-                </div>
+            <div class="card">
+                <img src="https://media.licdn.com/dms/image/v2/D5622AQHZVsq8qSD8Cw/feedshare-shrink_2048_1536/B56ZuEVZ6RG0Aw-/0/1767451764461?e=1775692800&v=beta&t=AZkpizCcV30_nf9XB82fc_rE2TNzT9Sus2UpHkGYQEg" class="card-img">
+                <div class="card-body"><h3>N8N Student ATS Agent</h3></div>
             </div>
         </div>
+    </div>
 
-        <div id="modalOverlay">
-            <div class="modal-box">
-                <button class="close-x" onclick="closePopup()">✕</button>
-                <div id="popupContent"></div>
-            </div>
+    <div id="modalOverlay">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeMod()">Close</button>
+            <div id="modContent"></div>
         </div>
+    </div>
 
-        <section class="cta">
-            <h2 class="en">Transform Your Business Today</h2>
-            <h2 class="te">మీ వ్యాపారాన్ని ఈరోజే మార్చుకోండి</h2>
-            <br>
-            <a href="mailto:k3stech1@gmail.com" class="mail-link">Contact: k3stech1@gmail.com</a>
-        </section>
+    <div id="chat-fab" onclick="toggleChat()"><i data-lucide="message-square"></i></div>
+    <div id="chat-window">
+        <div class="chat-header"><span>Yantra Assistant</span><span onclick="toggleChat()" style="cursor:pointer">✕</span></div>
+        <div class="chat-messages" id="chatLogs">
+            <div class="bot-msg">Welcome to Yantralyze! How are you doing today and how may I help you?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="userInput" placeholder="Type hi or services...">
+            <button class="send-btn" onclick="runChat()"><i data-lucide="send" style="color:#0b1120"></i></button>
+        </div>
     </div>
 
     <script>
-        const contentBank = {
-            analysis: {
-                en: `<h2>AI Analysis: The Data Advantage</h2>
-                    <ul class="modal-list">
-                        <li><b>General Manufacturing:</b> We utilize IoT data to predict bearing and motor failures 2 weeks before they occur, preventing lakhs in lost production time.</li>
-                        <li><b>Food & Beverage (F&B):</b> AI analyzes consumption peaks and ingredient shelf-life to cut procurement waste by up to 20%.</li>
-                        <li><b>Dairy Farms:</b> We correlate weather, feed nutrients, and animal health with milk yield to find the "Sweet Spot" for maximum profit per cattle.</li>
-                        <li><b>Retail/Inventory:</b> Smart analysis to identify dead stock and high-demand items automatically.</li>
-                        <li><b>Impact:</b> Typical clients achieve a <b>30% cost reduction</b> in operational overhead.</li>
-                    </ul>`,
-                te: `<h2>AI అనాలిసిస్: డేటా ప్రయోజనం</h2>
-                    <ul class="modal-list">
-                        <li><b>మాన్యుఫ్యాక్చరింగ్:</b> యంత్రాల భాగాల మరమ్మతులను 2 వారాల ముందే గుర్తించి ఉత్పత్తి సమయాన్ని ఆదా చేయవచ్చు.</li>
-                        <li><b>F&B పరిశ్రమ:</b> ఆహార పదార్థాల వృధాను 20% వరకు తగ్గించే స్మార్ట్ ఇన్వెంటరీ అనాలిసిస్.</li>
-                        <li><b>డైరీ ఫార్మ్స్:</b> పశుగ్రాసం మరియు వాతావరణాన్ని విశ్లేషించి పాల దిగుబడి పెంచడం.</li>
-                        <li><b>నిర్వహణ ఖర్చు:</b> మొత్తంగా 30% వరకు ఖర్చుల తగ్గింపు.</li>
-                    </ul>`
-            },
-            automation: {
-                en: `<h2>Autonomous AI Workflows</h2>
-                    <ul class="modal-list">
-                        <li><b>n8n Integration:</b> Connecting your CRM, Email, and WhatsApp to work while you sleep.</li>
-                        <li><b>Custom AI Agents:</b> Specialized agents (like our ATS Agent) to handle complex document sorting.</li>
-                    </ul>`,
-                te: `<h2>స్వయంప్రతిపత్త AI వర్క్‌ఫ్లోస్</h2>
-                    <ul class="modal-list">
-                        <li><b>n8n ఇంటిగ్రేషన్:</b> మీ బిజినెస్ పనులను ఆటోమేటిక్‌గా పూర్తి చేసే వర్క్‌ఫ్లోస్.</li>
-                        <li><b>AI ఏజెంట్స్:</b> డాక్యుమెంట్లు మరియు ఇతర క్లిష్టమైన పనుల కోసం ప్రత్యేక ఏజెంట్లు.</li>
-                    </ul>`
-            },
-            web: {
-                en: `<h2>Modern Web Engineering</h2>
-                    <ul class="modal-list">
-                        <li><b>Local SEO Mastery:</b> Be the first name people see in Warangal and Hyderabad searches.</li>
-                        <li><b>WhatsApp Catalogs:</b> Turn your website into a direct ordering machine.</li>
-                    </ul>`,
-                te: `<h2>ఆధునిక వెబ్ ఇంజనీరింగ్</h2>
-                    <ul class="modal-list">
-                        <li><b>లోకల్ SEO:</b> వరంగల్ మరియు హైదరాబాద్ సెర్చ్‌ల్లో మీ బిజినెస్ మొదటి స్థానంలో ఉండేలా చూడటం.</li>
-                        <li><b>వాట్సాప్ క్యాటలాగ్స్:</b> కస్టమర్లు నేరుగా వెబ్‌సైట్ నుండి ఆర్డర్ చేసే సదుపాయం.</li>
-                    </ul>`
-            }
-        };
-
-        function openPopup(key) {
-            const currentLang = document.getElementById('yantraBody').lang;
-            const targetContent = contentBank[key][currentLang];
-            document.getElementById('popupContent').innerHTML = targetContent;
-            
-            const overlay = document.getElementById('modalOverlay');
-            overlay.style.display = 'flex';
-            setTimeout(() => { overlay.classList.add('active'); }, 10);
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closePopup() {
-            const overlay = document.getElementById('modalOverlay');
-            overlay.classList.remove('active');
-            setTimeout(() => { overlay.style.display = 'none'; }, 400);
-            document.body.style.overflow = 'auto';
-        }
-
-        function toggleLang() {
-            const b = document.getElementById('yantraBody');
-            b.lang = (b.lang === 'en') ? 'te' : 'en';
-        }
-
-        window.onclick = function(e) { if(e.target.id === 'modalOverlay') closePopup(); }
         lucide.createIcons();
+
+        function toggleChat() {
+            const w = document.getElementById('chat-window');
+            w.style.display = (w.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function runChat() {
+            const box = document.getElementById('userInput');
+            const val = box.value.trim().toLowerCase();
+            if(!val) return;
+
+            addMsg(box.value, 'user-msg');
+            box.value = "";
+
+            setTimeout(() => {
+                let res = "I'm sorry, I didn't get that. We provide Business Analysis, N8N AI agents, and Web design.";
+                
+                if(["hi", "hello", "hey"].some(word => val.includes(word))) {
+                    res = "Hi! How are you doing today and how may I help you?";
+                } else if(["services", "provide", "offer"].some(word => val.includes(word))) {
+                    res = "We provide **Business Analysis**, **N8N AI agents**, and **Web design**. Which one interests you?";
+                } else if(val.includes("analysis") && val.includes("help")) {
+                    res = "Business Analysis at Yantralyze uses AI to turn your data into profit. In Manufacturing, we predict failures 15 days ahead; in F&B, we reduce waste by 20%. Overall, we cut costs by 30%!";
+                }
+                addMsg(res, 'bot-msg');
+            }, 600);
+        }
+
+        function addMsg(t, c) {
+            const l = document.getElementById('chatLogs');
+            const d = document.createElement('div');
+            d.className = c;
+            d.innerHTML = t;
+            l.appendChild(d);
+            l.scrollTop = l.scrollHeight;
+        }
+
+        function openMod(k) {
+            const data = {
+                analysis: "<h3>AI Business Analysis</h3><p>We use predictive AI to cut manufacturing costs by 30%.</p>",
+                automation: "<h3>N8N AI Agents</h3><p>Autonomous workflows that work 24/7 for your business.</p>",
+                web: "<h3>Custom Web Design</h3><p>SEO and WhatsApp-ready stores for local growth.</p>"
+            };
+            document.getElementById('modContent').innerHTML = data[k];
+            document.getElementById('modalOverlay').style.display = 'flex';
+        }
+
+        function closeMod() { document.getElementById('modalOverlay').style.display = 'none'; }
+        
+        function toggleLang() { alert("Language toggle initiated."); }
+
+        document.getElementById('userInput').addEventListener('keypress', (e) => { if(e.key === 'Enter') runChat(); });
     </script>
 </body>
 </html>
